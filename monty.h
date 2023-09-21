@@ -10,76 +10,75 @@
 #include <stdarg.h>
 
 /**
- * struct StackNode - Doubly linked list representation of a stack (or queue)
- * @data: Integer value stored in the node
- * @prev: Points to the previous element in the stack (or queue)
- * @next: Points to the next element in the stack (or queue)
+ * struct stack_s - doubly linked list representation of a stack (or queue)
+ * @n: integer
+ * @prev: points to the previous element of the stack (or queue)
+ * @next: points to the next element of the stack (or queue)
  *
- * Description: Structure for a doubly linked list node used for stacks and queues
- *              Supports LIFO and FIFO operations.
+ * Description: doubly linked list node structure
+ * for stack, queues, LIFO, FIFO
  */
-typedef struct StackNode
+typedef struct stack_s
 {
-        int data;
-        struct StackNode *prev;
-        struct StackNode *next;
-} StackNode;
+        int n;
+        struct stack_s *prev;
+        struct stack_s *next;
+} stack_t;
 
 /**
- * struct Instruction - Opcode and its corresponding function
- * @opcode: The opcode as a string
- * @func: Pointer to the function that handles the opcode
+ * struct instruction_s - opcode and its function
+ * @opcode: the opcode
+ * @f: function to handle the opcode
  *
- * Description: Structure defining an opcode and its associated function
- *              for stack and queue operations.
+ * Description: opcode and its function
+ * for stack, queues, LIFO, FIFO
  */
-typedef struct Instruction
+typedef struct instruction_s
 {
         char *opcode;
-        void (*func)(StackNode **stack, unsigned int line_number);
-} Instruction;
+        void (*f)(stack_t **stack, unsigned int line_number);
+} instruction_t;
 
-extern StackNode *head;
-typedef void (*OperationFunc)(StackNode **, unsigned int);
+extern stack_t *head;
+typedef void (*op_func)(stack_t **, unsigned int);
 
-/* File operations */
+/*file operations*/
 void open_file(char *file_name);
 int parse_line(char *buffer, int line_number, int format);
 void read_file(FILE *);
-int count_chars(FILE *);
-void find_function(char *, char *, int, int);
+int len_chars(FILE *);
+void find_func(char *, char *, int, int);
 
-/* Stack operations */
-StackNode *create_node(int data);
+/*Stack operations*/
+stack_t *create_node(int n);
 void free_nodes(void);
-void print_stack(StackNode **stack, unsigned int line_number);
-void push_to_stack(StackNode **stack, unsigned int line_number);
-void push_to_queue(StackNode **stack, unsigned int line_number);
+void print_stack(stack_t **, unsigned int);
+void add_to_stack(stack_t **, unsigned int);
+void add_to_queue(stack_t **, unsigned int);
 
-void execute_function(OperationFunc, char *, char *, int, int);
+void call_fun(op_func, char *, char *, int, int);
 
-void print_top(StackNode **stack, unsigned int line_number);
-void pop_top(StackNode **stack, unsigned int line_number);
-void nop(StackNode **stack, unsigned int line_number);
-void swap_nodes(StackNode **stack, unsigned int line_number);
+void print_top(stack_t **, unsigned int);
+void pop_top(stack_t **, unsigned int);
+void nop(stack_t **, unsigned int);
+void swap_nodes(stack_t **, unsigned int);
 
-/* Mathematical operations with nodes */
-void add_nodes(StackNode **stack, unsigned int line_number);
-void subtract_nodes(StackNode **stack, unsigned int line_number);
-void divide_nodes(StackNode **stack, unsigned int line_number);
-void multiply_nodes(StackNode **stack, unsigned int line_number);
-void modulo_nodes(StackNode **stack, unsigned int line_number);
+/*Math operations with nodes*/
+void add_nodes(stack_t **, unsigned int);
+void sub_nodes(stack_t **, unsigned int);
+void div_nodes(stack_t **, unsigned int);
+void mul_nodes(stack_t **, unsigned int);
+void mod_nodes(stack_t **, unsigned int);
 
-/* String operations */
-void print_character(StackNode **stack, unsigned int line_number);
-void print_string(StackNode **stack, unsigned int line_number);
-void rotate_left(StackNode **stack, unsigned int line_number);
+/*String operations*/
+void print_char(stack_t **, unsigned int);
+void print_str(stack_t **, unsigned int);
+void rotl(stack_t **, unsigned int);
 
-/* Error handling */
-void handle_error(int error_code, ...);
-void handle_more_error(int error_code, ...);
-void handle_string_error(int error_code, ...);
-void rotate_right(StackNode **stack, unsigned int line_number);
+/*Error hanlding*/
+void err(int error_code, ...);
+void more_err(int error_code, ...);
+void string_err(int error_code, ...);
+void rotr(stack_t **, unsigned int);
 
 #endif
-
