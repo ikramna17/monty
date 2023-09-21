@@ -1,7 +1,7 @@
 #include "monty.h"
 
 /**
- * err_ikram - Prints appropiate error messages determined by their error code.
+ * err_ikram  - Prints appropiate error messages determined by their error code.
  * @error_cd: The error codes are the following:
  * (1) => The user does not give any file or more than one file to the program.
  * (2) => The file provided is not a file that can be opened or read.
@@ -26,7 +26,7 @@ void err_ikram(int error_cd, ...)
 			break;
 		case 2:
 			fprintf(stderr, "Error: Can't open file %s\n",
-				va_arg(ag, char *));
+				va_arg(arg, char *));
 			break;
 		case 3:
 			l_num = va_arg(arg, int);
@@ -58,7 +58,7 @@ void more_err(int error_cd, ...)
 {
 	va_list ag;
 	char *op;
-	int 1_number;
+	int l_number;
 
 	va_start(ag, error_cd);
 	switch (error_cd)
@@ -72,9 +72,9 @@ void more_err(int error_cd, ...)
 				va_arg(ag, int));
 			break;
 		case 8:
-			1_number = va_arg(ag, unsigned int);
+			l_number = va_arg(ag, unsigned int);
 			op = va_arg(ag, char *);
-			fprintf(stderr, "L%d: can't %s, stack too short\n", 1_number, op);
+			fprintf(stderr, "L%d: can't %s, stack too short\n", l_number, op);
 			break;
 		case 9:
 			fprintf(stderr, "L%d: division by zero\n",
